@@ -19,6 +19,7 @@
     display: none;
   }
   .menuButton {
+    z-index: 100;
     display: block;
     cursor: pointer;
   }
