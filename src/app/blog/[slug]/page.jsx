@@ -4,6 +4,16 @@ import PostUser from "@/components/postUser/postUser";
 import { Suspense } from "react";
 import { getPost } from "@/lib/data";
 
+export const generateMetadata = async ({ params }) => {
+  const { slug } = params;
+  const post = await getPost(slug);
+
+  return {
+    title: post.title,
+    description: post.desc,
+  };
+};
+
 const SingleBlogPost = async ({ params }) => {
   const { slug } = params;
   const post = await getPost(slug);
@@ -25,7 +35,9 @@ const SingleBlogPost = async ({ params }) => {
             )}
             <div className={styles.detailText}>
               <span className={styles.detailTitle}>Published</span>
-              <span className={styles.detailValue}>12.12.2024</span>
+              <span className={styles.detailValue}>
+                {post?.createdAt.toString().slice(4, 16)}
+              </span>
             </div>
           </div>
           <div className={styles.content}>{post?.desc}</div>
